@@ -190,65 +190,92 @@ modal.addEventListener('click', () => {
   });
 });
 
-// Open Tic-Tac-Toe
-ticTacToeBtn.addEventListener("click", () => {
-  $(listPage).fadeOut(400, function() {
-    $(gamePage).fadeIn(400);
-  });
-});
+// =========================
+  // TIC-TAC-TOE
+  // =========================
 
-let currentPlayer = "X";
-let gameActive = true;
-const winningCombinations = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6]
-];
-cells.forEach((cell, index) => {
-  cell.addEventListener("click", () => {
-    if (cell.textContent !== "" || !gameActive) return;
-    cell.textContent = currentPlayer;
-    checkWinner();
-    if (gameActive) {
-      currentPlayer = currentPlayer === "X" ? "O" : "X";
-      gameStatus.textContent = `Player ${currentPlayer}'s turn`;
-    }
+  ticTacToeBtn.addEventListener("click", () => {
+    $(listPage).fadeOut(400, function() {
+      $(gamePage).fadeIn(400);
+    });
   });
-});
-function checkWinner() {
-  for (let combination of winningCombinations) {
-    const [a, b, c] = combination;
-    if (
-      cells[a].textContent &&
-      cells[a].textContent === cells[b].textContent &&
-      cells[a].textContent === cells[c].textContent
+  let currentPlayer = "X";
+  let gameActive = true;
+  const winningCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+  cells.forEach((cell) => {
+    cell.addEventListener("click", () => {
+      if (
+        cell.textContent !== "" ||
+        !gameActive
+      ) return;
+      cell.textContent = currentPlayer;
+      checkWinner();
+      if (gameActive) {
+        currentPlayer =
+          currentPlayer === "X"
+            ? "O"
+            : "X";
+        gameStatus.textContent =
+          Player ${currentPlayer}'s turn;
+      }
+    });
+  });
+  function checkWinner() {
+    for (
+      let combination
+      of winningCombinations
     ) {
-      gameStatus.textContent = `Player ${cells[a].textContent} wins!`;
+      const [a, b, c] =
+        combination;
+      if (
+        cells[a].textContent &&
+        cells[a].textContent ===
+        cells[b].textContent &&
+        cells[a].textContent ===
+        cells[c].textContent
+      ) {
+        gameStatus.textContent =
+          Player ${cells[a].textContent} wins!;
+        gameActive = false;
+        return;
+      }
+    }
+    const draw =
+      [...cells].every(
+        cell =>
+          cell.textContent !== ""
+      );
+    if (draw) {
+      gameStatus.textContent =
+        "It's a draw!";
       gameActive = false;
-      return;
     }
   }
-  const draw = [...cells].every(cell => cell.textContent !== "");
-  if (draw) {
-    gameStatus.textContent = "It's a draw!";
-    gameActive = false;
-  }
-}
-
-backToListBtn.addEventListener("click", () => {
-
-  cells.forEach(cell => {
-    cell.textContent = "";
-  });
-  currentPlayer = "X";
-  gameActive = true;
-  gameStatus.textContent = "Your turn";
-  $(gamePage).fadeOut(400, function() {
-    $(listPage).fadeIn(400);
-  });
-});
+  backToListBtn.addEventListener(
+    "click",
+    () => {
+      cells.forEach((cell) => {
+        cell.textContent = "";
+      });
+      currentPlayer = "X";
+      gameActive = true;
+      gameStatus.textContent =
+        "Player X's turn";
+      $(gamePage).fadeOut(
+        400,
+        function() {
+          $(listPage).fadeIn(400);
+        }
+      );
+    }
+  );
+}); // ← THIS MUST BE THE VERY LAST LINE
