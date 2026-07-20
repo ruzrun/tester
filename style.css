@@ -300,3 +300,12 @@ li::before {
 .cell:hover {
   background: rgba(255, 255, 255, 0.4);
 }
+
+.game-button img {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  display: block;
+  margin: auto;
+  border-radius: 10px;
+}
