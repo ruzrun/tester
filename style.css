@@ -20,9 +20,17 @@ body {
 }
 
 @keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .page {
@@ -33,12 +41,16 @@ body {
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
   width: 90%;
   max-width: 400px;
-  position: relative; /* For pseudo-elements if needed */
+  position: relative;
 }
 
 .hidden {
   display: none;
 }
+
+/* =========================
+   LOGIN
+========================= */
 
 input {
   width: 80%;
@@ -48,6 +60,10 @@ input {
   margin-top: 20px;
   font-size: 16px;
   text-align: center;
+}
+
+#passwordInput {
+  font-family: "Courier New", monospace;
 }
 
 button {
@@ -67,26 +83,30 @@ button:hover {
   color: #000;
 }
 
+#loginError {
+  color: #ff8080;
+  margin-top: 10px;
+}
 
+/* =========================
+   DIARY LIST
+========================= */
 
 ul {
   list-style: none;
-  padding: 0;
-  max-height: 300px; /* Scrollable if many entries */
+  padding: 10px;
+  max-height: 300px;
   overflow-y: auto;
   margin: 20px 0;
-  background: rgba(255, 255, 255, 0.1); /* Subtle notebook background */
+  background: transparent;
   border-radius: 10px;
-  padding: 10px;
-  background: transparent; /* Lined paper effect */
-  background-size: 100% 1.6em;
 }
 
 li {
   margin: 10px 0;
   background: rgba(255, 255, 255, 0.2);
   padding: 15px;
-  border-radius: 5px 20px 20px 5px; /* Torn page shape */
+  border-radius: 5px 20px 20px 5px;
   cursor: pointer;
   transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -95,101 +115,77 @@ li {
 
 li:hover {
   background: rgba(255, 255, 255, 0.4);
-  transform: translateY(-5px) rotate(2deg); /* Lift and tilt like flipping */
+  transform: translateY(-5px) rotate(2deg);
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 li::before {
-  content: '📖'; /* Diary icon */
+  content: '📖';
   margin-right: 10px;
   font-size: 1.2em;
 }
+
+#currentDate {
+  font-size: 1em;
+  font-style: italic;
+  color: #ffd700;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* =========================
+   LOGOUT + GAME BUTTON
+========================= */
+
+.bottom-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.bottom-controls #logoutBtn {
+  margin-top: 0;
+}
+
+#gameMenu {
+  position: static;
+}
+
+.game-button {
+  width: 55px;
+  height: 55px;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+
+.game-button img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.game-button:hover img {
+  transform: scale(1.15) rotate(-5deg);
+}
+
+/* =========================
+   DIARY VIEW
+========================= */
 
 #diaryTitle {
   font-family: 'Dancing Script', cursive;
   font-size: 2em;
   margin-bottom: 20px;
-  color: #fa93c7; /* Pink for romance */
-}
-
-#diaryContent {
-  background: rgba(255, 255, 255, 0.1); /* Parchment-like */
-  padding: 20px;
-  border-radius: 10px;
-  text-align: left;
-  line-height: 1.6;
-  white-space: pre-wrap; /* Preserve line breaks from JSON */
-  animation: reveal 1s ease-out; /* Animation on open */
-  max-height: 300px; /* Adjust this value based on your design; e.g., 300px or 50vh */
-  overflow-y: auto; /* Enables vertical scrolling if content exceeds max-height */
-  position: relative; /* Allows absolute positioning for Polaroid */
-}
-
-.polaroid {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  width: 100px; /* Small size */
-  height: auto;
-  border: 8px solid #fff; /* Polaroid frame */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for depth */
-  transform: rotate(15deg); /* Tilted for letter-like feel */
-  cursor: pointer;
-  transition: width 0.3s ease, transform 0.3s ease;
-  z-index: 10;
-}
-
-.polaroid.enlarged {
-  width: 300px; /* Larger size */
-  transform: rotate(0deg); /* Straighten when enlarged */
-  bottom: 20px;
-  right: 20px;
-}
-
-.polaroid img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-@keyframes reveal {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Envelope shape for view page */
-#viewPage::before {
-  content: '';
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-bottom: 20px solid rgba(0, 0, 0, 0.3); /* Flap like an envelope */
-  z-index: -1;
-}
-
-#viewPage::after {
-  content: '❤'; /* Heart seal */
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.5em;
-}
-
-#loginError {
-  color: #ff8080;
-  margin-top: 10px;
+  color: #fa93c7;
 }
 
 .diary-header {
@@ -202,31 +198,74 @@ li::before {
 #diaryDate {
   font-size: 1em;
   font-style: italic;
-  color: #ffd700; /* Gold for a romantic touch; adjust as needed */
-  white-space: nowrap; /* Prevent wrapping */
+  color: #ffd700;
+  white-space: nowrap;
 }
 
-#currentDate {
-  font-size: 1em;
-  font-style: italic;
-  color: #ffd700; /* Gold for elegance */
-  margin-bottom: 15px;
-  text-align: center;
+#diaryContent {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: left;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  animation: reveal 1s ease-out;
+  max-height: 300px;
+  overflow-y: auto;
+  position: relative;
 }
 
-#passwordInput {
-  font-family: "Courier New", monospace; /* Example: Monospace font for a 'code-like' look; change to your preferred font */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
+
+/* =========================
+   ENVELOPE EFFECT
+========================= */
 
 #viewPage {
-  position: relative; /* Positioning context */
+  position: relative;
 }
 
-/* Small Polaroid (outside corner) */
+#viewPage::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid rgba(0, 0, 0, 0.3);
+  z-index: -1;
+}
+
+#viewPage::after {
+  content: '❤';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5em;
+}
+
+/* =========================
+   POLAROID
+========================= */
+
 .polaroid {
   position: absolute;
-  bottom: -20px; /* Slightly outside bottom */
-  right: -20px; /* Slightly outside right */
+  bottom: -20px;
+  right: -20px;
   width: 100px;
   height: auto;
   border: 8px solid #fff;
@@ -243,16 +282,19 @@ li::before {
   display: block;
 }
 
-/* Modal Popup */
+/* =========================
+   IMAGE MODAL
+========================= */
+
 .modal {
-  display: none; /* Hidden by default */
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
-  z-index: 100; /* On top of everything */
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
   justify-content: center;
   align-items: center;
 }
@@ -269,8 +311,11 @@ li::before {
   max-height: 80vh;
   border: 8px solid #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  transform: rotate(0deg); /* Straight in popup */
 }
+
+/* =========================
+   TIC-TAC-TOE
+========================= */
 
 #gameStatus {
   margin: 15px 0;
@@ -299,29 +344,6 @@ li::before {
 
 .cell:hover {
   background: rgba(255, 255, 255, 0.4);
-}
-
-#gameMenu {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-}
-
-.game-button {
-  width: 55px;
-  height: 55px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.game-button img {
-  width: 45px;
-  height: 45px;
-  object-fit: contain;
-  display: block;
-  transition: transform 0.3s ease;
 }
 
 .game-button:hover img {
