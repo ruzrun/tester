@@ -7,6 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const viewPage = document.getElementById("viewPage");
   const gamePage = document.getElementById("gamePage");
 
+ // From Arcade Pages Pass 
+  const fromArcade =
+    new URLSearchParams(
+        window.location.search
+    ).get("from") === "arcade";
+
   // Login elements
   const passwordInput = document.getElementById("passwordInput");
   const togglePasswordBtn = document.getElementById("togglePasswordBtn");
